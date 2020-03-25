@@ -1,0 +1,16 @@
+version: '2'
+services:
+  rcerts-app:
+    image: rcerts
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://rcerts-postgresql:5432/rcerts
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+    ports:
+      - 8090:8090
+  rcerts-postgresql:
+    extends:
+      file: postgresql.yml
+      service: rcerts-postgresql
